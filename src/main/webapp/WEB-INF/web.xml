@@ -19,13 +19,38 @@
   -->
   <context-param>
   	<param-name>INIT_PARAM</param-name>
-  	<param-value>web.xml에 저장한 초기화 매개변수1234</param-value>
+  	<param-value>web.xml에 저장한 초기화 매개변수</param-value>
   </context-param>
+  
+  <!-- 오라클 JDBC를 위한 드라이버 및 연결 정보 -->
+  <context-param>
+  	<param-name>OracleDriver</param-name>
+  	<param-value>oracle.jdbc.OracleDriver</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>OracleURL</param-name>
+  	<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>OracleId</param-name>
+  	<param-value>musthave</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>OraclePwd</param-name>
+  	<param-value>1234</param-value>
+  </context-param>
+  
+  <!-- 세션유지기간 설정 : 분단위 -->
+  <session-config>
+    <session-timeout>20</session-timeout>
+  </session-config>
+  
   
   <!-- 에러페이지 설정은 개발이 완료된 후 실제 서비스를 위해 배포한 경우에만 적용하는 것이 좋다. 개발시에는 오류가
   발생했을 때 웹페이지를 통해서도 디버깅을 해야하기 때문이다. -->
   <!-- 에러페이지 처리하기. 하위 3가지의 에러가 발생되면 지정된 파일로 즉시 포워드 된다. -->
-<!--   <error-page>
+<!--   
+  <error-page>
   	<error-code>404</error-code>
   	<location>/02ImplicitObject/Exception.jsp</location>
   </error-page>
@@ -36,5 +61,28 @@
   <error-page>
   	<error-code>500</error-code>
   	<location>/02ImplicitObject/Exception.jsp</location>
-  </error-page> -->
+  </error-page> 
+-->
 </web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
