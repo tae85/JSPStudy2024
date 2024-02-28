@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
   <display-name>JSPStudy2024</display-name>
-  
-  <!-- 웹사이트 접속시 사용자는 도메인을 사용하게 된다. 이때 파일명은 알 수 없으므로 첫번째로 로드할 파일명을 기술한다.
-  목록에 있는 파일이 존재하면 자동으로 로드되고, 없다면 404에러가 발생한다. -->
   <welcome-file-list>
     <welcome-file>HelloJSP.jsp</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -12,91 +9,73 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  
-  <!-- 
-  컨텍스트 초기화 파라미터(매개변수) : 웹 애플리케이션 전체에서 접근하여 사용할 수 있는 상수를 가리킨다. String 형태로
-  	저장되고, 주로 프로그램에서 사용할 설정값을 기술한다.  
-  -->
   <context-param>
-  	<param-name>INIT_PARAM</param-name>
-  	<param-value>web.xml에 저장한 초기화 매개변수</param-value>
-  </context-param>
-  
-  <!-- 오라클 JDBC를 위한 드라이버 및 연결 정보 -->
-  <context-param>
-  	<param-name>OracleDriver</param-name>
-  	<param-value>oracle.jdbc.OracleDriver</param-value>
+    <param-name>INIT_PARAM</param-name>
+    <param-value>web.xml에 저장한 초기화 매개변수</param-value>
   </context-param>
   <context-param>
-  	<param-name>OracleURL</param-name>
-  	<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+    <param-name>OracleDriver</param-name>
+    <param-value>oracle.jdbc.OracleDriver</param-value>
   </context-param>
   <context-param>
-  	<param-name>OracleId</param-name>
-  	<param-value>musthave</param-value>
+    <param-name>OracleURL</param-name>
+    <param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
   </context-param>
   <context-param>
-  	<param-name>OraclePwd</param-name>
-  	<param-value>1234</param-value>
-  </context-param>
-  
-  <!-- 
-  게시판의 페이징 기능 추가 
-  	POSTS_PER_PAGE : 한 페이지에 출력할 게시물의 개수를 설정
-  	PAGES_PER_BLOCK : 한 블럭당 출력할 페이지번호희 개수를 설정
-  -->
-  <context-param>
-  	<param-name>POSTS_PER_PAGE</param-name>
-  	<param-value>10</param-value>
+    <param-name>OracleId</param-name>
+    <param-value>musthave</param-value>
   </context-param>
   <context-param>
-  	<param-name>PAGES_PER_BLOCK</param-name>
-  	<param-value>5</param-value>
+    <param-name>OraclePwd</param-name>
+    <param-value>1234</param-value>
   </context-param>
-  
-  <!-- 세션유지기간 설정 : 분단위 -->
+  <context-param>
+    <param-name>POSTS_PER_PAGE</param-name>
+    <param-value>10</param-value>
+  </context-param>
+  <context-param>
+    <param-name>PAGES_PER_BLOCK</param-name>
+    <param-value>5</param-value>
+  </context-param>
   <session-config>
     <session-timeout>20</session-timeout>
   </session-config>
-  
-  
-  <!-- 에러페이지 설정은 개발이 완료된 후 실제 서비스를 위해 배포한 경우에만 적용하는 것이 좋다. 개발시에는 오류가
-  발생했을 때 웹페이지를 통해서도 디버깅을 해야하기 때문이다. -->
-  <!-- 에러페이지 처리하기. 하위 3가지의 에러가 발생되면 지정된 파일로 즉시 포워드 된다. -->
-<!--   
-  <error-page>
-  	<error-code>404</error-code>
-  	<location>/02ImplicitObject/Exception.jsp</location>
-  </error-page>
-  <error-page>
-  	<error-code>405</error-code>
-  	<location>/02ImplicitObject/Exception.jsp</location>
-  </error-page>
-  <error-page>
-  	<error-code>500</error-code>
-  	<location>/02ImplicitObject/Exception.jsp</location>
-  </error-page> 
--->
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>servlet.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/12Servlet/HelloServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DirectServletPrint</servlet-name>
+    <servlet-class>servlet.DirectServletPrint</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DirectServletPrint</servlet-name>
+    <url-pattern>/12Servlet/DirectServletPrint.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MemberAuth</servlet-name>
+    <servlet-class>servlet.MemberAuth</servlet-class>
+    <init-param>
+      <param-name>admin_id</param-name>
+      <param-value>nakja</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberAuth</servlet-name>
+    <url-pattern>/12Servlet/MemberAuth.mvc</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TestServlet</display-name>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>servlet.TestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/TestServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
