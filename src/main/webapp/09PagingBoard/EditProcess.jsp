@@ -15,7 +15,7 @@ dto.setContent(content);
 
 BoardDAO dao = new BoardDAO(application);
 int affected = dao.updateEdit(dto);
-dao.close();
+dao.close(); 
 
 if(affected == 1) {
 	response.sendRedirect("View.jsp?num=" + dto.getNum());

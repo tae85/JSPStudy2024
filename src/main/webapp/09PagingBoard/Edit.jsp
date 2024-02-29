@@ -12,7 +12,7 @@ if(!sessionId.equals(dto.getId())) {
 	JSFunction.alertBack("작성자 본인만 수정할 수 있습니다.", out);
 	return;
 }
-dao.close();
+dao.close(); 
 %>
 <!DOCTYPE html>
 <html>

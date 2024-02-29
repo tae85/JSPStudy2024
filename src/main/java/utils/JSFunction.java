@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.PrintWriter;
+
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.jsp.JspWriter;
 
 public class JSFunction {
@@ -27,7 +30,6 @@ public class JSFunction {
 		catch (Exception e) {}
 	}
 	
-	//기능 : 경고창을 띄우고 뒤로 한페이지 이동한다.
 	public static void alertBack(String msg, JspWriter out) {
 		try {
 			String script = ""
@@ -39,4 +41,55 @@ public class JSFunction {
 		} 
 		catch (Exception e) {}
 	}
+	
+	/*
+	상단 2개의 메서드는 JSP에서 사용하기 위해 정의하였다. JSP에서 out 내장객체를 전달하면 매개변수로 받아서 사용한다.
+	아래 2개는 Servlet에서 사용하기 위해 메서드 오버로딩으로 정의한다. 서블릿이 직접 요청을 받으므로 response
+	내장객체를 통해 화면출력을 위한 PrintWriter 인스턴스를 생성하여 사용한다. 
+	 */
+	public static void alertLocation(HttpServletResponse resp, String msg, String url) {
+		try {
+			resp.setContentType("text/html;charset=UTF-8");
+			PrintWriter writer = resp.getWriter();
+			String script = ""
+						+ "<script>"
+						+ "		alert('" + msg + "');"
+						+ "		location.href='" + url + "';"
+						+ "</script>";
+			writer.println(script);
+		} 
+		catch (Exception e) {}
+	}
+	
+	public static void alertBack(HttpServletResponse resp, String msg) {
+		try {
+			resp.setContentType("text/html;charset=UTF-8");
+			PrintWriter writer = resp.getWriter();
+			String script = ""
+						+ "<script>"
+						+ "		alert('" + msg + "');"
+						+ "		history.back();"
+						+ "</script>";
+			writer.println(script);
+		} 
+		catch (Exception e) {}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

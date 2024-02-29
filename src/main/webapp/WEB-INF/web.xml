@@ -9,6 +9,8 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  
   <context-param>
     <param-name>INIT_PARAM</param-name>
     <param-value>web.xml에 저장한 초기화 매개변수</param-value>
@@ -29,17 +31,23 @@
     <param-name>OraclePwd</param-name>
     <param-value>1234</param-value>
   </context-param>
+  
+  
   <context-param>
     <param-name>POSTS_PER_PAGE</param-name>
-    <param-value>10</param-value>
+    <param-value>3</param-value>
   </context-param>
   <context-param>
     <param-name>PAGES_PER_BLOCK</param-name>
-    <param-value>5</param-value>
+    <param-value>3</param-value>
   </context-param>
+  
+  
   <session-config>
     <session-timeout>20</session-timeout>
   </session-config>
+  
+  
   <servlet>
     <servlet-name>HelloServlet</servlet-name>
     <servlet-class>servlet.HelloServlet</servlet-class>
@@ -48,6 +56,7 @@
     <servlet-name>HelloServlet</servlet-name>
     <url-pattern>/12Servlet/HelloServlet.do</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>DirectServletPrint</servlet-name>
     <servlet-class>servlet.DirectServletPrint</servlet-class>
@@ -56,6 +65,7 @@
     <servlet-name>DirectServletPrint</servlet-name>
     <url-pattern>/12Servlet/DirectServletPrint.do</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>MemberAuth</servlet-name>
     <servlet-class>servlet.MemberAuth</servlet-class>
@@ -64,10 +74,34 @@
       <param-value>nakja</param-value>
     </init-param>
   </servlet>
+  
+  
+  <!-- 서블릿을 이용한 MVC 패턴 게시판 매핑 -->
+  <!-- 리스트 -->
+  <servlet>
+    <servlet-name>MVCBoardList</servlet-name>
+    <servlet-class>model2.mvcboard.ListController</servlet-class>
+  </servlet>
   <servlet-mapping>
-    <servlet-name>MemberAuth</servlet-name>
-    <url-pattern>/12Servlet/MemberAuth.mvc</url-pattern>
+    <servlet-name>MVCBoardList</servlet-name>
+    <url-pattern>/mvcboard/list.do</url-pattern>
   </servlet-mapping>
+  
+  <!-- 글 작성하기 -->
+  <servlet>
+    <servlet-name>MVCBoardWrite</servlet-name>
+    <servlet-class>model2.mvcboard.WriteController</servlet-class>
+    <multipart-config>
+    	<max-file-size>1048576</max-file-size>
+    	<max-request-size>10485760</max-request-size>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MVCBoardWrite</servlet-name>
+    <url-pattern>/mvcboard/write.do</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <description></description>
     <display-name>TestServlet</display-name>
@@ -78,4 +112,6 @@
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/TestServlet</url-pattern>
   </servlet-mapping>
+  
+  
 </web-app>

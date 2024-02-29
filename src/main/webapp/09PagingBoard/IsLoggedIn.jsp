@@ -10,6 +10,6 @@ if(session.getAttribute("UserId") == null) {
 	JSFunction.alertLocation("로그인 후 이용해주십시오.", "../06Session/LoginForm.jsp", out);
 	
 	//JSP실행을 중지시킨다.
-	return;
+	return; 
 }
 %>
