@@ -131,9 +131,12 @@ public class FileUtil {
 	
 	public static void deleteFile(HttpServletRequest req, 
 			String directory, String fileName) {
+		//업로드 디렉토리의 물리적 경로 얻어오기
 		String sDirectory = req.getServletContext().getRealPath(directory);
+		//디렉토리와 파일명을 조립해서 File 객체 생성
 		File file = new File(sDirectory + File.separator + fileName);
 		if(file.exists()) {
+			//파일이 경로에 존재한다면 삭제 
 			file.delete();
 		}
 	}

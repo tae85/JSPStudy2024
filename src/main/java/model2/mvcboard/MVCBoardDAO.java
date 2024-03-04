@@ -155,6 +155,7 @@ public class MVCBoardDAO extends DBConnPool	{
 		}
 	}
 	
+	//파일 다운로드 수 증가
 	public void downCountPlus(String idx) {
 		String sql = "update mvcboard set downcount = downcount + 1 where idx = ?";
 		
@@ -166,30 +167,38 @@ public class MVCBoardDAO extends DBConnPool	{
 		catch (Exception e) {}
 	}
 	
+	//패스워드 검증
 	public boolean confirmPassword(String pass, String idx) {
 		boolean isCorr = true;
 		try {
+			//일련번호와 패스워드의 조건에 만족하는 레코드가 있는지 확인 
 			String sql = "select count(*) from mvcboard where pass=? and idx=?";
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, pass);
 			psmt.setString(2, idx);
 			rs = psmt.executeQuery();
+			
+			/* count()함수는 반드시 결과값이 있으므로 if문 없이 next()를 호출한다. 조건에 만족하지 않으면
+			0, 만족하면 1을 반환한다. */
 			rs.next();
 			if(rs.getInt(1) == 0) {
+				//조건에 만족하는 레코드가 없는 경우
 				isCorr = false;
 			}
 		} 
 		catch (Exception e) {
+			//쿼리문 실행 도중 예외가 발생되면 catch절로 넘어오므로 이 경우에도 false로 설정해야 한다.
 			isCorr = false;
 			e.printStackTrace();
 		}
-		
 		return isCorr;
 	}
-	
+
+	//게시물 삭제
 	public int deletePost(String idx) {
 		int result = 0;
 		try {
+			//일련번호에 해당하는 게시물 1개 삭제
 			String query = "delete from mvcboard where idx=?";
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, idx);
@@ -202,9 +211,14 @@ public class MVCBoardDAO extends DBConnPool	{
 		return result;
 	}
 	
+	//게시물 수정
 	public int updatePost(MVCBoardDTO dto) {
 		int result = 0;
 		try {
+			/*
+			비회원제 게시판은 패스워드를 통해 검증을 진행한 후 수정이나 삭제를 해야한다. 따라서 아래와 같이 where절에는
+			idx와 pass까지 조건을 추가하는 것이 좋다.
+			 */
 			String query = "update mvcboard"
 					+ " set title = ?, name = ?, content =?, ofile = ?, sfile = ? "
 					+ " where idx = ? and pass = ?";
